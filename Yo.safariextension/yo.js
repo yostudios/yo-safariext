@@ -75,10 +75,10 @@ function updateUnreadMessageCount(count) {
 function getUsername(){
   // this will get redirected to users page if logged in
   var request = new JSONRequest('GET', 'http://yo.se/accounts/profile/', function(response){
-    if (response.chains) {
+    if (response.redirect) {
       loginFail = false;
-      // assume the first chains first message author is the user since we are on the me page
-      username = response.chains[0][0].author;
+      // don't follow the redirect, just extract username :O
+      username = response.redirect.split('.')[0].substr(7);
       getUnread();
     } else {
       loginFail = true;
